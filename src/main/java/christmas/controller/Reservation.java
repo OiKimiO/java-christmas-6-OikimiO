@@ -1,13 +1,19 @@
 package christmas.controller;
 
+import static christmas.utils.RepeatReader.read;
+
+import christmas.domain.ReservationDay;
+import christmas.view.InputView;
+
 public class Reservation {
     public Reservation(){
-        inputVisitDate();
+        ReservationDay reserveDay = read(this::reserveDay);
         inputOrderMenu();
         previewBenefit();
     }
 
-    public void inputVisitDate() {
+    public ReservationDay reserveDay() {
+        return new ReservationDay(InputView.reserveDay());
     }
 
     public void inputOrderMenu() {

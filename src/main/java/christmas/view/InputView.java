@@ -1,7 +1,7 @@
 package christmas.view;
 
 public class InputView {
-    public static int inputVisitDate(){
+    public static int reserveDay(){
         return 0;
     }
 
