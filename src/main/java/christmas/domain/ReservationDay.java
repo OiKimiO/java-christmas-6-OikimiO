@@ -1,5 +1,8 @@
 package christmas.domain;
 
+import christmas.config.exception.ExceptionType;
+import christmas.config.exception.InputException;
+
 public class ReservationDay {
     private static final int START_DAY = 1;
     private static final int END_DAY = 31;
@@ -11,12 +14,12 @@ public class ReservationDay {
     }
 
     private void validate(int day) {
-        if(isOverDateRange(day)){
-
+        if(isOverDayRange(day)){
+            throw new InputException(ExceptionType.OVER_RANGE_RESERVATION_DAY);
         }
     }
 
-    private boolean isOverDateRange(int day) {
+    private boolean isOverDayRange(int day) {
         return isLower(day) && isHigher(day);
     }
 
