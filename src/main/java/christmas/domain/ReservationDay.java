@@ -8,7 +8,11 @@ public class ReservationDay {
     private static final int END_DAY = 31;
     private final int day;
 
-    public ReservationDay(int day){
+    public static ReservationDay create(int day){
+        return new ReservationDay(day);
+    }
+
+    private ReservationDay(int day){
         validate(day);
         this.day = day;
     }
