@@ -1,23 +1,14 @@
 package christmas.controller;
 
+import christmas.dto.ReservationDto;
+import christmas.view.input.InputView;
+
 public class PreviewBenefit {
     public PreviewBenefit(){
-        order();
+        ReservationDto reservationDto = InputView.previewBenefit();
         benefit();
         discountPayment();
         badge();
-    }
-
-    public void order() {
-        menu();
-        payment();
-    }
-
-    public void menu() {
-
-    }
-
-    public void payment() {
     }
 
     public void benefit() {

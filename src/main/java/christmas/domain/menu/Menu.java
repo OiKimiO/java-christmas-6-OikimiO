@@ -26,4 +26,13 @@ public class Menu {
     private boolean isExistMenu(CookType cookType, String menuName) {
         return cookType.isEmptyName(menuName);
     }
+
+    public String name(){
+        return this.menuName;
+    }
+
+    public Integer price() {
+        CookType cookType = new CookType();
+        return cookType.price(this.menuName);
+    }
 }

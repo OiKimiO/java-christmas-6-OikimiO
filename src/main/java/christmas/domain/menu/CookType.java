@@ -33,4 +33,7 @@ public class CookType {
         return cookings.get(menu) == null;
     }
 
+    public int price(String menu){
+        return cookings.get(menu);
+    }
 }
