@@ -30,12 +30,12 @@ public class Reservation {
         return new OrderHistory(menu, orderQuantity);
     }
 
-    private OrderQuantity inputOrderQuantity(Map<String, Integer> orderHistory, Menu menu) {
-        return new OrderQuantity(orderHistory, menu);
-    }
-
     private Menu inputMenu(Set<String> orderMenu) {
         return new Menu(orderMenu);
+    }
+
+    private OrderQuantity inputOrderQuantity(Map<String, Integer> orderHistory, Menu menu) {
+        return new OrderQuantity(orderHistory, menu);
     }
 
     public void previewBenefit(){

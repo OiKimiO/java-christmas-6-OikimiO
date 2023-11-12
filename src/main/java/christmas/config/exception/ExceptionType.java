@@ -2,7 +2,8 @@ package christmas.config.exception;
 
 public enum ExceptionType {
     ERROR("[ERROR] "),
-    OVER_RANGE_RESERVATION_DAY(ERROR.getValue() + "유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+    OVER_RANGE_RESERVATION_DAY(ERROR.getValue() + "유효하지 않은 날짜입니다. 다시 입력해 주세요."),
+    INVALID_ORDER(ERROR.getValue() + "유효하지 않은 주문입니다. 다시 입력해 주세요.");
     private final String value;
 
     ExceptionType(String value) {
