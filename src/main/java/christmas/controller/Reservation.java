@@ -11,7 +11,6 @@ public class Reservation {
     public Reservation() {
         ReservationDay reserveDay = read(this::reserveDay);
         OrderHistory orderHistory = read(this::receiveOrder);
-        previewBenefit();
     }
 
     public ReservationDay reserveDay() {
@@ -23,41 +22,5 @@ public class Reservation {
         OrderFormat.validate(orders);
 
         return OrderHistory.create(orders);
-    }
-
-    public void previewBenefit() {
-        order();
-        benefit();
-        discountPayment();
-        badge();
-    }
-
-    public void order() {
-        menu();
-        payment();
-    }
-
-    public void menu() {
-
-    }
-
-    public void payment() {
-    }
-
-    public void benefit() {
-        presentation();
-        totalBenefit();
-    }
-
-    public void presentation() {
-    }
-
-    public void totalBenefit() {
-    }
-
-    public void discountPayment() {
-    }
-
-    public void badge() {
     }
 }
