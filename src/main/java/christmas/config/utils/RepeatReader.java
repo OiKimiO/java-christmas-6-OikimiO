@@ -1,5 +1,6 @@
-package christmas.utils;
+package christmas.config.utils;
 
+import christmas.config.exception.InputException;
 import java.util.function.Supplier;
 
 public class RepeatReader {
@@ -14,7 +15,7 @@ public class RepeatReader {
             try {
                 input = supplier.get();
                 break;
-            } catch (IllegalArgumentException e) {
+            } catch (InputException e) {
 
             }
         }

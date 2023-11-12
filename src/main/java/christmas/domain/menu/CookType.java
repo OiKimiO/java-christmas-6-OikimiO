@@ -29,8 +29,8 @@ public class CookType {
         }
     }
 
-    public boolean isEmptyName(String menuName){
-        return cookings.get(menuName) == null;
+    public boolean isEmptyName(String menu){
+        return cookings.get(menu) == null;
     }
 
 }

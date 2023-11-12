@@ -1,6 +1,8 @@
-package christmas.view;
+package christmas.view.output;
 
 import static java.lang.String.format;
+
+import christmas.view.output.MessageType;
 
 public class OutputView {
     private OutputView() {

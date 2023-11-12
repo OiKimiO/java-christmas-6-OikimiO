@@ -1,4 +1,4 @@
-package christmas.view;
+package christmas.view.output;
 
 public enum DomainMessage implements MessageType{
     ORDER_MENU("<주문 메뉴>"),

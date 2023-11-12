@@ -1,17 +1,14 @@
 package christmas.controller;
 
-import static christmas.utils.RepeatReader.read;
+import static christmas.config.utils.RepeatReader.read;
 
-import christmas.domain.OrderHistory;
-import christmas.domain.OrderQuantity;
+import christmas.controller.format.OrderFormat;
 import christmas.domain.ReservationDay;
-import christmas.domain.menu.Menu;
-import christmas.view.InputView;
-import java.util.Map;
-import java.util.Set;
+import christmas.domain.order.OrderHistory;
+import christmas.view.input.InputView;
 
 public class Reservation {
-    public Reservation(){
+    public Reservation() {
         ReservationDay reserveDay = read(this::reserveDay);
         OrderHistory orderHistory = read(this::receiveOrder);
         previewBenefit();
@@ -22,23 +19,13 @@ public class Reservation {
     }
 
     public OrderHistory receiveOrder() {
-        Map<String, Integer> orderHistory = InputView.receiveOrder();
-        Set<String> orderMenu = orderHistory.keySet();
+        String[] orders = InputView.receiveOrder();
+        OrderFormat.validate(orders);
 
-        Menu menu = inputMenu(orderMenu);
-        OrderQuantity orderQuantity = inputOrderQuantity(orderHistory, menu);
-        return new OrderHistory(menu, orderQuantity);
+        return OrderHistory.create(orders);
     }
 
-    private Menu inputMenu(Set<String> orderMenu) {
-        return new Menu(orderMenu);
-    }
-
-    private OrderQuantity inputOrderQuantity(Map<String, Integer> orderHistory, Menu menu) {
-        return new OrderQuantity(orderHistory, menu);
-    }
-
-    public void previewBenefit(){
+    public void previewBenefit() {
         order();
         benefit();
         discountPayment();
