@@ -5,6 +5,7 @@ import static camp.nextstep.edu.missionutils.Console.readLine;
 
 import christmas.config.convert.ConvertToArray;
 import christmas.config.convert.ConvertToInt;
+import christmas.domain.Payment;
 import christmas.domain.ReservationDay;
 import christmas.domain.order.OrderHistory;
 import christmas.dto.ReservationDto;
@@ -19,8 +20,8 @@ public class InputView {
         return ConvertToArray.from(readLine()).get();
     }
 
-    public static void reservationInfo(ReservationDay reserveDay, OrderHistory orderHistory){
-        reservationDto = new ReservationDto(reserveDay, orderHistory);
+    public static void reservationInfo(ReservationDay reserveDay, OrderHistory orderHistory, Payment payment){
+        reservationDto = new ReservationDto(reserveDay, orderHistory, payment);
     }
 
     public static ReservationDto previewBenefit(){

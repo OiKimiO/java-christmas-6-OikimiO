@@ -18,8 +18,8 @@ public class Reservation {
     public void reservationInfo() {
         ReservationDay reserveDay = read(this::reserveDay);
         OrderHistory orderHistory = read(this::receiveOrder);
-        orderInfo(orderHistory);
-        InputView.reservationInfo(reserveDay, orderHistory);
+        Payment payment = orderInfo(orderHistory);
+        InputView.reservationInfo(reserveDay, orderHistory, payment);
     }
 
     public ReservationDay reserveDay() {
@@ -33,7 +33,7 @@ public class Reservation {
         return OrderHistory.create(orders);
     }
 
-    public void orderInfo(OrderHistory orderHistory) {
+    public Payment orderInfo(OrderHistory orderHistory) {
         StringBuilder order = orderHistory.historyFormat();
         Payment payment = Payment.create(orderHistory);
         Integer totalBill = payment.payment();
@@ -42,5 +42,6 @@ public class Reservation {
         OutputView.printf(DomainMessage.OUTPUT_FORMAT, order.toString());
         OutputView.print(DomainMessage.PREV_DISCOUNT_ORDER_AMOUNT);
         OutputView.printf(DomainMessage.OUTPUT_FORMAT, totalBill);
+        return payment;
     }
 }
