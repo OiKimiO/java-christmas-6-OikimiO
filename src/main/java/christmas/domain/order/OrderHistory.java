@@ -17,5 +17,17 @@ public class OrderHistory {
                 .collect(Collectors.toList());
     }
 
+    public StringBuilder historyFormat(){
+        return new StringBuilder(orderHistory.stream()
+                .map(Order::orderFormat)
+                .collect(Collectors.joining()));
+    }
 
+    public Integer calculateBill() {
+        int totalBill = 0;
+        for (Order order : orderHistory) {
+            totalBill += order.calculateBill();
+        }
+        return totalBill;
+    }
 }

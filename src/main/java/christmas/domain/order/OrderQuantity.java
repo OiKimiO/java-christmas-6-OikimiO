@@ -25,5 +25,8 @@ public class OrderQuantity {
         return quantity < 1;
     }
 
+    public Integer quantity(){
+        return this.orderQuantity;
+    }
 
 }
