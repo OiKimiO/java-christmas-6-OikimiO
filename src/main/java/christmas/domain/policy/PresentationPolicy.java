@@ -16,4 +16,8 @@ public class PresentationPolicy{
         }
     }
 
+    public String presentation(){
+        return this.presentation;
+    }
+
 }
