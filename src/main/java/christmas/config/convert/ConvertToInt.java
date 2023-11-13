@@ -2,6 +2,7 @@ package christmas.config.convert;
 
 import christmas.config.exception.ExceptionType;
 import christmas.config.exception.InputException;
+import christmas.view.output.OutputView;
 
 public class ConvertToInt {
     private final int value;
@@ -14,7 +15,8 @@ public class ConvertToInt {
         try{
             this.value = Integer.parseInt(value);
         }catch (NumberFormatException e){
-            throw new InputException(ExceptionType.NOT_SEPERATE_STRING);
+            OutputView.print(ExceptionType.OVER_RANGE_RESERVATION_DAY);
+            throw new InputException(ExceptionType.OVER_RANGE_RESERVATION_DAY);
         }
     }
 

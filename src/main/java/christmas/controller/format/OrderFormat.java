@@ -18,13 +18,15 @@ public class OrderFormat {
         }
     }
 
+    private static boolean isRetryFormat(String[] orderHistory) {
+        return Arrays.stream(orderHistory)
+                .noneMatch(order -> pattern.matcher(order).matches());
+    }
+
     private static boolean isEmpty(String[] orderHistory) {
         return Arrays.stream(orderHistory)
                 .allMatch(order -> order.isEmpty());
     }
 
-    private static boolean isRetryFormat(String[] orderHistory) {
-        return Arrays.stream(orderHistory)
-                .anyMatch(order -> pattern.matcher(order).matches());
-    }
+
 }

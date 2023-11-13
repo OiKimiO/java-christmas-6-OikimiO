@@ -21,7 +21,7 @@ public class Reservation {
     public void reservationInfo() {
         ReservationDay reserveDay = read(this::reserveDay);
         OrderHistory orderHistory = read(this::receiveOrder);
-        Payment payment = orderInfo(orderHistory);
+        Payment payment = orderInfo(reserveDay, orderHistory);
         InputView.reservationInfo(reserveDay, orderHistory, payment);
     }
 
@@ -39,22 +39,27 @@ public class Reservation {
         String order = InputView.receiveOrder();
         String[] orders = ConvertToArray.from(order).get();
         OrderFormat.validate(orders);
-        OrderHistory orderHistory = OrderHistory.create(orders);
 
-        OutputView.printf(InputMessage.INPUT_FORMAT, orders);
+        OutputView.printf(InputMessage.INPUT_FORMAT, order);
 
         return OrderHistory.create(orders);
     }
 
-    public Payment orderInfo(OrderHistory orderHistory) {
+    public Payment orderInfo(ReservationDay reserveDay, OrderHistory orderHistory) {
+        OutputView.printf(DomainMessage.PREVIEW_BENEFIT, reserveDay.reserveDay());
+        OutputView.print(InputMessage.SEPARATE);
+
         StringBuilder order = orderHistory.historyFormat();
         Payment payment = Payment.create(orderHistory);
         Integer totalBill = payment.payment();
 
         OutputView.print(DomainMessage.ORDER_MENU);
         OutputView.printf(DomainMessage.OUTPUT_FORMAT, order.toString());
+        OutputView.print(InputMessage.SEPARATE);
+
         OutputView.print(DomainMessage.PREV_DISCOUNT_ORDER_AMOUNT);
-        OutputView.printf(DomainMessage.OUTPUT_FORMAT, totalBill);
+        OutputView.printf(DomainMessage.OUTPUT_WON, totalBill);
+        OutputView.print(InputMessage.SEPARATE);
         return payment;
     }
 }

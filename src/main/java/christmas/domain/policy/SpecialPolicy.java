@@ -15,7 +15,7 @@ public class SpecialPolicy {
 
     private SpecialPolicy(Payment payment, int day){
         int discountAmount = 0;
-        if(specialDay.contains(day) && payment.isDiscount()){
+        if(specialDay.contains(day) && payment.isApplyEvent()){
             discountAmount = this.DISCOUNT_AMOUNT;
         }
         this.specialDiscount = discountAmount;

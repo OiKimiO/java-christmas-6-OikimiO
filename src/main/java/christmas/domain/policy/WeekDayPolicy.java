@@ -8,7 +8,7 @@ public class WeekDayPolicy {
     private static final String DESSERT = "Dessert";
     private static final LocalDate STANDARD_DATE = LocalDate.parse("2023-12-01");
     private static final int NOT_DISCOUNT = 0;
-    private final int WeekDayDiscount;
+    private final int weekDayDiscount;
 
     public static WeekDayPolicy create(Payment payment, int day){
         return new WeekDayPolicy(payment, day);
@@ -16,8 +16,13 @@ public class WeekDayPolicy {
 
     private WeekDayPolicy(Payment payment, int day){
         DayOfWeek dayOfWeek = dayOfWeekAfterDays(day);
+        int weekDayDiscount = 0;
 
-        this.WeekDayDiscount = discountCost(payment, dayOfWeek);
+        if(payment.isApplyEvent()){
+            weekDayDiscount = discountCost(payment, dayOfWeek);
+        }
+
+        this.weekDayDiscount = weekDayDiscount;
     }
 
     public DayOfWeek dayOfWeekAfterDays(int day) {
@@ -29,10 +34,10 @@ public class WeekDayPolicy {
 
     private int discountCost(Payment payment, DayOfWeek dayOfWeek) {
         if(ifWeekDay(dayOfWeek)){
-            return this.NOT_DISCOUNT;
+            return payment.discount(this.DESSERT);
         }
 
-        return payment.discount(this.DESSERT);
+        return this.NOT_DISCOUNT;
     }
 
     private boolean ifWeekDay(DayOfWeek dayOfWeek) {
@@ -40,6 +45,6 @@ public class WeekDayPolicy {
     }
 
     public int weekDayDiscount() {
-        return this.WeekDayDiscount;
+        return this.weekDayDiscount;
     }
 }

@@ -11,6 +11,7 @@ import christmas.domain.policy.WeekendPolicy;
 import christmas.dto.ReservationDto;
 import christmas.view.input.InputView;
 import christmas.view.output.DomainMessage;
+import christmas.view.output.InputMessage;
 import christmas.view.output.OutputView;
 
 public class PreviewBenefit {
@@ -18,12 +19,12 @@ public class PreviewBenefit {
         ReservationDto reservationDto = InputView.previewBenefit();
         Payment payment = reservationDto.payment();
         ReservationDay reservationDay = reservationDto.reserveDay();
-        OutputView.printf(DomainMessage.PREVIEW_BENEFIT, reservationDay.reserveDay());
 
         int presentationDiscount = presentation(payment);
         int totalDiscount = totalBenefit(payment, reservationDay);
         OutputView.print(DomainMessage.TOTAL_BENEFIT_AMOUNT);
         OutputView.printf(DomainMessage.OUTPUT_WON,(totalDiscount + presentationDiscount));
+        OutputView.print(InputMessage.SEPARATE);
 
         discountPayment(payment, totalDiscount);
         badge(payment);
@@ -33,13 +34,14 @@ public class PreviewBenefit {
         PresentationPolicy presentationPolicy = PresentationPolicy.create(payment);
 
         OutputView.print(DomainMessage.PRESENTATION_MENU);
-        OutputView.printf(DomainMessage.PRESENTATION_DISCOUNT, presentationPolicy.presentation());
-
-        return presentationPolicy.presentationDiscount();
+        OutputView.printMessage(presentationPolicy.presentation());
+        OutputView.print(InputMessage.SEPARATE);
+        return presentationPolicy.presentationAmount();
     }
 
     public int totalBenefit(Payment payment, ReservationDay reservationDay) {
         DDayPolicy dDayPolicy = DDayPolicy.create(payment, reservationDay.reserveDay());
+        PresentationPolicy presentationPolicy = PresentationPolicy.create(payment);
         SpecialPolicy specialPolicy = SpecialPolicy.create(payment, reservationDay.reserveDay());
         WeekDayPolicy weekDayPolicy = WeekDayPolicy.create(payment, reservationDay.reserveDay());
         WeekendPolicy weekendPolicy = WeekendPolicy.create(payment, reservationDay.reserveDay());
@@ -48,29 +50,35 @@ public class PreviewBenefit {
         int specialDiscount = specialPolicy.specialDiscount();
         int weekDayDiscount = weekDayPolicy.weekDayDiscount();
         int weekendDiscount = weekendPolicy.weekendDiscount();
+        int presentationAmount = presentationPolicy.presentationAmount();
         int totalDiscount = dDayDiscount + specialDiscount + weekDayDiscount + weekendDiscount;
 
         OutputView.print(DomainMessage.BENEFIT_LIST);
-        if(dDayDiscount > 0){
+        if(dDayDiscount < 0){
             OutputView.printf(DomainMessage.CHRISTMAS_DISCOUNT,dDayDiscount);
         }
 
-        if(weekDayDiscount > 0){
+        if(weekDayDiscount < 0){
             OutputView.printf(DomainMessage.WEEKDAY_DISCOUNT,weekDayDiscount);
         }
 
-        if(weekendDiscount > 0){
+        if(weekendDiscount < 0){
             OutputView.printf(DomainMessage.WEEKEND_DISCOUNT,weekendDiscount);
         }
 
-        if(specialDiscount > 0){
+        if(specialDiscount < 0){
             OutputView.printf(DomainMessage.SPECIAL_DISCOUNT,specialDiscount);
         }
 
-        if(dDayDiscount == 0 && weekDayDiscount == 0 && weekendDiscount == 0 && specialDiscount == 0){
+        if(presentationAmount < 0){
+            OutputView.printf(DomainMessage.PRESENTATION_DISCOUNT, presentationAmount);
+        }
+
+        if(dDayDiscount == 0 && weekDayDiscount == 0 && weekendDiscount == 0 && specialDiscount == 0 && presentationAmount == 0){
             OutputView.print(DomainMessage.OUTPUT_NOTHING);
         }
 
+        OutputView.print(InputMessage.SEPARATE);
         return totalDiscount;
     }
 
@@ -78,6 +86,7 @@ public class PreviewBenefit {
         int totalPayment = payment.payment() + totalDiscount;
         OutputView.print(DomainMessage.AFTER_DISCOUNT_EXPECTATION_AMOUNT);
         OutputView.printf(DomainMessage.OUTPUT_WON,totalPayment);
+        OutputView.print(InputMessage.SEPARATE);
     }
 
     public void badge(Payment payment) {

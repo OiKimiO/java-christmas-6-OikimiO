@@ -15,7 +15,7 @@ public class DDayPolicy {
 
     private DDayPolicy(Payment payment, int day){
         int dDayDiscount = 0;
-        if(payment.isDiscount()){
+        if(payment.isApplyEvent()){
             dDayDiscount = discountCost(day);
         }
         this.dDayDiscount = dDayDiscount;

@@ -3,7 +3,6 @@ package christmas.view.input;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
-import christmas.config.convert.ConvertToArray;
 import christmas.config.convert.ConvertToInt;
 import christmas.domain.Payment;
 import christmas.domain.ReservationDay;
@@ -13,7 +12,8 @@ import christmas.dto.ReservationDto;
 public class InputView {
     private static ReservationDto reservationDto;
     public static int reserveDay(){
-        return ConvertToInt.from(readLine()).get();
+        ConvertToInt from = ConvertToInt.from(readLine());
+        return from.get();
     }
 
     public static String receiveOrder() {

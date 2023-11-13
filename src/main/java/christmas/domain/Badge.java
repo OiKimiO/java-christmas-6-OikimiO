@@ -13,16 +13,18 @@ public class Badge {
     }
 
     private Badge(Payment payment) {
-        if(payment.isBadge(this.STAR)){
-            this.badge = "별";
-        }
+        if(payment.isApplyEvent()){
+            if(payment.isBadge(this.STAR)){
+                this.badge = "별";
+            }
 
-        if(payment.isBadge(this.TREE)){
-            this.badge = "트리";
-        }
+            if(payment.isBadge(this.TREE)){
+                this.badge = "트리";
+            }
 
-        if(payment.isBadge(this.SANTA)){
-            this.badge = "산타";
+            if(payment.isBadge(this.SANTA)){
+                this.badge = "산타";
+            }
         }
     }
 

@@ -42,8 +42,9 @@ public class Order {
     }
 
     public int discount(String cookType) {
+        Integer quantity = this.orderQuantity.quantity();
         if(isEqualCookType(cookType)){
-            return DISCOUNT_AMOUNT;
+            return DISCOUNT_AMOUNT * quantity;
         }
         return NOT_DISCOUNT;
     }

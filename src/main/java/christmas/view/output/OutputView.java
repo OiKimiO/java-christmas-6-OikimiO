@@ -16,7 +16,7 @@ public class OutputView {
         printMessage(format(messageType.getValue(), inputNames));
     }
 
-    private static void printMessage(String message) {
-        System.out.print(message);
+    public static void printMessage(String message) {
+        System.out.println(message);
     }
 }

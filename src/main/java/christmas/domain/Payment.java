@@ -29,7 +29,7 @@ public class Payment {
         return this.payment >= badgeStandard;
     }
 
-    public boolean isDiscount() {
+    public boolean isApplyEvent() {
         return this.payment >= this.DISCOUNT_CONDITION;
     }
 

@@ -1,6 +1,7 @@
 package christmas.config.utils;
 
 import christmas.config.exception.InputException;
+import christmas.view.output.OutputView;
 import java.util.function.Supplier;
 
 public class RepeatReader {
@@ -16,7 +17,7 @@ public class RepeatReader {
                 input = supplier.get();
                 break;
             } catch (InputException e) {
-
+                OutputView.printMessage(e.getMessage());
             }
         }
 

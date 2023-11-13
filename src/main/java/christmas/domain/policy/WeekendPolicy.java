@@ -17,7 +17,13 @@ public class WeekendPolicy {
     public WeekendPolicy(Payment payment, int day){
         DayOfWeek dayOfWeek = dayOfWeekAfterDays(day);
 
-        this.weekendDiscount = discountCost(payment, dayOfWeek);
+        int weekendDiscount = 0;
+
+        if(payment.isApplyEvent()){
+            weekendDiscount = discountCost(payment, dayOfWeek);
+        }
+
+        this.weekendDiscount = weekendDiscount;
     }
 
     public DayOfWeek dayOfWeekAfterDays(int day) {
