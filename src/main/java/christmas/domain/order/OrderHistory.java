@@ -36,6 +36,6 @@ public class OrderHistory {
         for (Order order : orderHistory) {
             totalDiscount += order.discount(cookType);
         }
-        return totalDiscount;
+        return -totalDiscount;
     }
 }

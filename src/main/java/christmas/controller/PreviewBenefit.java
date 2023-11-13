@@ -25,7 +25,7 @@ public class PreviewBenefit {
         OutputView.print(DomainMessage.TOTAL_BENEFIT_AMOUNT);
         OutputView.printf(DomainMessage.OUTPUT_FORMAT,(totalDiscount + presentationDiscount)+"원");
 
-        discountPayment();
+        discountPayment(payment, totalDiscount);
         badge();
     }
 
@@ -48,17 +48,32 @@ public class PreviewBenefit {
         int specialDiscount = specialPolicy.specialDiscount();
         int weekDayDiscount = weekDayPolicy.weekDayDiscount();
         int weekendDiscount = weekendPolicy.weekendDiscount();
-        int totalDiscount = -(dDayDiscount + specialDiscount + weekDayDiscount + weekendDiscount);
+        int totalDiscount = dDayDiscount + specialDiscount + weekDayDiscount + weekendDiscount;
 
         OutputView.print(DomainMessage.BENEFIT_LIST);
-        OutputView.printf(DomainMessage.CHRISTMAS_DISCOUNT,dDayDiscount);
-        OutputView.printf(DomainMessage.WEEKDAY_DISCOUNT,weekDayDiscount);
-        OutputView.printf(DomainMessage.WEEKEND_DISCOUNT,weekendDiscount);
+        if(dDayDiscount > 0){
+            OutputView.printf(DomainMessage.CHRISTMAS_DISCOUNT,dDayDiscount);
+        }
+
+        if(weekDayDiscount > 0){
+            OutputView.printf(DomainMessage.WEEKDAY_DISCOUNT,weekDayDiscount);
+        }
+
+        if(weekendDiscount > 0){
+            OutputView.printf(DomainMessage.WEEKEND_DISCOUNT,weekendDiscount);
+        }
+
+        if(specialDiscount > 0){
+            OutputView.printf(DomainMessage.SPECIAL_DISCOUNT,specialDiscount);
+        }
 
         return totalDiscount;
     }
 
-    public void discountPayment() {
+    public void discountPayment(Payment payment, int totalDiscount) {
+        int totalPayment = payment.payment() + totalDiscount;
+        OutputView.print(DomainMessage.AFTER_DISCOUNT_EXPECTATION_AMOUNT);
+        OutputView.printf(DomainMessage.OUTPUT_FORMAT,totalPayment + "원");
     }
 
     public void badge() {
