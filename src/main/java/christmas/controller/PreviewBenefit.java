@@ -19,10 +19,9 @@ public class PreviewBenefit {
         ReservationDto reservationDto = InputView.previewBenefit();
         Payment payment = reservationDto.payment();
         ReservationDay reservationDay = reservationDto.reserveDay();
-        OrderHistory orderHistory = reservationDto.orderHistory();
 
         int presentationDiscount = presentation(payment);
-        int totalDiscount = totalBenefit(orderHistory, reservationDay);
+        int totalDiscount = totalBenefit(payment, reservationDay);
         OutputView.print(DomainMessage.TOTAL_BENEFIT_AMOUNT);
         OutputView.printf(DomainMessage.OUTPUT_FORMAT,(totalDiscount + presentationDiscount)+"원");
 
@@ -39,11 +38,11 @@ public class PreviewBenefit {
         return presentationPolicy.presentationDiscount();
     }
 
-    public int totalBenefit(OrderHistory orderHistory, ReservationDay reservationDay) {
-        DDayPolicy dDayPolicy = DDayPolicy.create(reservationDay.reserveDay());
-        SpecialPolicy specialPolicy = SpecialPolicy.create(reservationDay.reserveDay());
-        WeekDayPolicy weekDayPolicy = WeekDayPolicy.create(orderHistory, reservationDay.reserveDay());
-        WeekendPolicy weekendPolicy = WeekendPolicy.create(orderHistory, reservationDay.reserveDay());
+    public int totalBenefit(Payment payment, ReservationDay reservationDay) {
+        DDayPolicy dDayPolicy = DDayPolicy.create(payment, reservationDay.reserveDay());
+        SpecialPolicy specialPolicy = SpecialPolicy.create(payment, reservationDay.reserveDay());
+        WeekDayPolicy weekDayPolicy = WeekDayPolicy.create(payment, reservationDay.reserveDay());
+        WeekendPolicy weekendPolicy = WeekendPolicy.create(payment, reservationDay.reserveDay());
 
         int dDayDiscount = dDayPolicy.dDayDiscount();
         int specialDiscount = specialPolicy.specialDiscount();

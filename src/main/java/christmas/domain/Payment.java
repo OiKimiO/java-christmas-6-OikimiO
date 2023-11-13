@@ -4,6 +4,8 @@ import christmas.domain.order.OrderHistory;
 
 public class Payment {
     private static final int TOTAL_AMOUNT = 120000;
+    private static final int DISCOUNT_CONDITION = 10000;
+    private OrderHistory orderHistory;
     private final Integer payment;
 
     public static Payment create(OrderHistory orderHistory){
@@ -11,7 +13,8 @@ public class Payment {
     }
 
     private Payment(OrderHistory orderHistory){
-        payment = orderHistory.calculateBill();
+        this.orderHistory = orderHistory;
+        payment = this.orderHistory.calculateBill();
     }
 
     public Integer payment(){
@@ -24,5 +27,13 @@ public class Payment {
 
     public boolean isBadge(int badgeStandard){
         return this.payment >= badgeStandard;
+    }
+
+    public boolean isDiscount() {
+        return this.payment >= this.DISCOUNT_CONDITION;
+    }
+
+    public int discount(String cookType) {
+        return this.orderHistory.discount(cookType);
     }
 }

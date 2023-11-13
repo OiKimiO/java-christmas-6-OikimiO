@@ -1,5 +1,7 @@
 package christmas.domain.policy;
 
+import christmas.domain.Payment;
+
 public class DDayPolicy {
     private static final int STANDARD_DISCOUNT = -1000;
     private static final int NOT_DISCOUNT = 0;
@@ -7,12 +9,16 @@ public class DDayPolicy {
     private static final int END_DAY = 25;
     private final int dDayDiscount;
 
-    public static DDayPolicy create(int day){
-        return new DDayPolicy(day);
+    public static DDayPolicy create(Payment payment, int day){
+        return new DDayPolicy(payment, day);
     }
 
-    private DDayPolicy(int day){
-        this.dDayDiscount = discountCost(day);
+    private DDayPolicy(Payment payment, int day){
+        int dDayDiscount = 0;
+        if(payment.isDiscount()){
+            dDayDiscount = discountCost(day);
+        }
+        this.dDayDiscount = dDayDiscount;
     }
 
     private int discountCost(int day){

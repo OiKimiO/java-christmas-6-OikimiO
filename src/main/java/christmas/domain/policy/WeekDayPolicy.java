@@ -1,6 +1,6 @@
 package christmas.domain.policy;
 
-import christmas.domain.order.OrderHistory;
+import christmas.domain.Payment;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
@@ -10,14 +10,14 @@ public class WeekDayPolicy {
     private static final int NOT_DISCOUNT = 0;
     private final int WeekDayDiscount;
 
-    public static WeekDayPolicy create(OrderHistory orderHistory, int day){
-        return new WeekDayPolicy(orderHistory, day);
+    public static WeekDayPolicy create(Payment payment, int day){
+        return new WeekDayPolicy(payment, day);
     }
 
-    private WeekDayPolicy(OrderHistory orderHistory, int day){
+    private WeekDayPolicy(Payment payment, int day){
         DayOfWeek dayOfWeek = dayOfWeekAfterDays(day);
 
-        this.WeekDayDiscount = discountCost(orderHistory, dayOfWeek);
+        this.WeekDayDiscount = discountCost(payment, dayOfWeek);
     }
 
     public DayOfWeek dayOfWeekAfterDays(int day) {
@@ -27,12 +27,12 @@ public class WeekDayPolicy {
         return dayOfWeek;
     }
 
-    private int discountCost(OrderHistory orderHistory, DayOfWeek dayOfWeek) {
+    private int discountCost(Payment payment, DayOfWeek dayOfWeek) {
         if(ifWeekDay(dayOfWeek)){
             return this.NOT_DISCOUNT;
         }
 
-        return orderHistory.discount(this.DESSERT);
+        return payment.discount(this.DESSERT);
     }
 
     private boolean ifWeekDay(DayOfWeek dayOfWeek) {
