@@ -12,8 +12,7 @@ public class PreviewBenefit {
         ReservationDto reservationDto = InputView.previewBenefit();
         Payment payment = reservationDto.payment();
         presentation(payment);
-
-        benefit();
+        totalBenefit();
         discountPayment();
         badge();
     }
@@ -23,10 +22,6 @@ public class PreviewBenefit {
 
         OutputView.print(DomainMessage.PRESENTATION_MENU);
         OutputView.printf(DomainMessage.OUTPUT_FORMAT, presentationPolicy.presentation());
-    }
-
-    public void benefit() {
-        totalBenefit();
     }
 
     public void totalBenefit() {
