@@ -5,6 +5,7 @@ import christmas.domain.Payment;
 public class PresentationPolicy{
 
     private String presentation;
+    private static final int PRESENTATION_AMOUNT = 25000;
 
     public static PresentationPolicy create(Payment payment){
         return new PresentationPolicy(payment);
