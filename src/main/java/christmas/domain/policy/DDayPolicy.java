@@ -7,7 +7,11 @@ public class DDayPolicy {
     private static final int END_DAY = 25;
     private final int dDayDiscount;
 
-    public DDayPolicy(int day){
+    public static DDayPolicy create(int day){
+        return new DDayPolicy(day);
+    }
+
+    private DDayPolicy(int day){
         this.dDayDiscount = discountCost(day);
     }
 

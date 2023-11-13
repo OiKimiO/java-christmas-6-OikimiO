@@ -8,9 +8,17 @@ public class SpecialPolicy {
     private final int DISCOUNT_AMOUNT = 1000;
     private int specialDiscount = 0;
 
-    public SpecialPolicy(int day){
+    public static SpecialPolicy create(int day){
+        return new SpecialPolicy(day);
+    }
+
+    private SpecialPolicy(int day){
         if(specialDay.contains(day)){
             this.specialDiscount = this.DISCOUNT_AMOUNT;
         }
+    }
+
+    public int specialDiscount() {
+        return this.specialDiscount;
     }
 }

@@ -10,6 +10,10 @@ public class WeekendPolicy {
     private static final int NOT_DISCOUNT = 0;
     private final int weekendDiscount;
 
+    public static WeekendPolicy create(OrderHistory orderHistory, int day){
+        return new WeekendPolicy(orderHistory, day);
+    }
+
     public WeekendPolicy(OrderHistory orderHistory, int day){
         DayOfWeek dayOfWeek = dayOfWeekAfterDays(day);
 
@@ -33,5 +37,9 @@ public class WeekendPolicy {
 
     private boolean ifWeekDay(DayOfWeek dayOfWeek) {
         return dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY;
+    }
+
+    public int weekendDiscount() {
+        return this.weekendDiscount;
     }
 }

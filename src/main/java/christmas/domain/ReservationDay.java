@@ -34,4 +34,8 @@ public class ReservationDay {
     private boolean isHigher(int day) {
         return day > END_DAY;
     }
+
+    public int reserveDay(){
+        return this.day;
+    }
 }

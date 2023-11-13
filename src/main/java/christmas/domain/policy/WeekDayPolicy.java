@@ -10,7 +10,11 @@ public class WeekDayPolicy {
     private static final int NOT_DISCOUNT = 0;
     private final int WeekDayDiscount;
 
-    public WeekDayPolicy(OrderHistory orderHistory, int day){
+    public static WeekDayPolicy create(OrderHistory orderHistory, int day){
+        return new WeekDayPolicy(orderHistory, day);
+    }
+
+    private WeekDayPolicy(OrderHistory orderHistory, int day){
         DayOfWeek dayOfWeek = dayOfWeekAfterDays(day);
 
         this.WeekDayDiscount = discountCost(orderHistory, dayOfWeek);
@@ -33,5 +37,9 @@ public class WeekDayPolicy {
 
     private boolean ifWeekDay(DayOfWeek dayOfWeek) {
         return dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY;
+    }
+
+    public int weekDayDiscount() {
+        return this.WeekDayDiscount;
     }
 }
