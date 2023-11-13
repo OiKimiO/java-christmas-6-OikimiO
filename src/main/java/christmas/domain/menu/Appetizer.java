@@ -15,6 +15,11 @@ public enum Appetizer implements Cooking{
     }
 
     @Override
+    public String type(){
+        return "Appetizer";
+    }
+
+    @Override
     public String menuName(){
         return this.menuName;
     }
@@ -23,5 +28,4 @@ public enum Appetizer implements Cooking{
     public int price() {
         return this.price;
     }
-
 }

@@ -26,8 +26,16 @@ public class OrderHistory {
     public Integer calculateBill() {
         int totalBill = 0;
         for (Order order : orderHistory) {
-            totalBill += order.calculateBill();
+            totalBill += order.calculate();
         }
         return totalBill;
+    }
+
+    public int discount(String cookType) {
+        int totalDiscount = 0;
+        for (Order order : orderHistory) {
+            totalDiscount += order.discount(cookType);
+        }
+        return totalDiscount;
     }
 }

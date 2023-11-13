@@ -15,6 +15,11 @@ public enum MainDish implements Cooking{
     }
 
     @Override
+    public String type() {
+        return "MainDish";
+    }
+
+    @Override
     public String menuName(){
         return this.menuName;
     }

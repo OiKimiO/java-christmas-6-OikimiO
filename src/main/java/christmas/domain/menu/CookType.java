@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class CookType {
     private static final Map<String, Integer> cookings = new HashMap<>();
+    private static final Map<String, String> cookType = new HashMap<>();
 
     public CookType(){
         if(isEmpty()){
@@ -26,6 +27,7 @@ public class CookType {
     private void addMenu(Cooking[] cooks) {
         for (Cooking cook : cooks) {
             cookings.put(cook.menuName(), cook.price());
+            cookType.put(cook.menuName(), cook.type());
         }
     }
 
@@ -35,5 +37,9 @@ public class CookType {
 
     public int price(String menu){
         return cookings.get(menu);
+    }
+
+    public String type(String menu) {
+        return cookType.get(menu);
     }
 }

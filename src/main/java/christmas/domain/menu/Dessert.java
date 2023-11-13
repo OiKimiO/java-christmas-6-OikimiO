@@ -13,6 +13,11 @@ public enum Dessert implements Cooking{
     }
 
     @Override
+    public String type() {
+        return "Dessert";
+    }
+
+    @Override
     public String menuName(){
         return this.menuName;
     }

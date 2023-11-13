@@ -4,6 +4,7 @@ import christmas.config.exception.ExceptionType;
 import christmas.config.exception.InputException;
 
 public class Menu {
+    private final CookType cookType = new CookType();
     private final String menuName;
 
     public static Menu create(String menuName){
@@ -16,9 +17,7 @@ public class Menu {
     }
 
     private void validate(String menuName) {
-        CookType cookType = new CookType();
-
-        if(isExistMenu(cookType, menuName)){
+        if(isExistMenu(this.cookType, menuName)){
             throw new InputException(ExceptionType.INVALID_ORDER);
         }
     }
@@ -32,7 +31,11 @@ public class Menu {
     }
 
     public Integer price() {
-        CookType cookType = new CookType();
-        return cookType.price(this.menuName);
+        return this.cookType.price(this.menuName);
     }
+
+    public String cookType(){
+        return this.cookType.type(this.menuName);
+    }
+
 }

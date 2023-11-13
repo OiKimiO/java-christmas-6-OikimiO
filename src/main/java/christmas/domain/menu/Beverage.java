@@ -14,6 +14,11 @@ public enum Beverage implements Cooking {
     }
 
     @Override
+    public String type() {
+        return "Beverage";
+    }
+
+    @Override
     public String menuName(){
         return this.menuName;
     }
@@ -22,4 +27,5 @@ public enum Beverage implements Cooking {
     public int price() {
         return this.price;
     }
+
 }
