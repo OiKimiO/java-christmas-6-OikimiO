@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.Badge;
 import christmas.domain.Payment;
 import christmas.domain.ReservationDay;
 import christmas.domain.order.OrderHistory;
@@ -26,7 +27,7 @@ public class PreviewBenefit {
         OutputView.printf(DomainMessage.OUTPUT_FORMAT,(totalDiscount + presentationDiscount)+"원");
 
         discountPayment(payment, totalDiscount);
-        badge();
+        badge(payment);
     }
 
     public int presentation(Payment payment) {
@@ -67,6 +68,10 @@ public class PreviewBenefit {
             OutputView.printf(DomainMessage.SPECIAL_DISCOUNT,specialDiscount);
         }
 
+        if(dDayDiscount == 0 && weekDayDiscount == 0 && weekendDiscount == 0 && specialDiscount == 0){
+            OutputView.printf(DomainMessage.OUTPUT_FORMAT,"없음");
+        }
+
         return totalDiscount;
     }
 
@@ -76,6 +81,9 @@ public class PreviewBenefit {
         OutputView.printf(DomainMessage.OUTPUT_FORMAT,totalPayment + "원");
     }
 
-    public void badge() {
+    public void badge(Payment payment) {
+        Badge badge = Badge.create(payment);
+        OutputView.print(DomainMessage.DECEMBER_EVENT_BADGE);
+        OutputView.printf(DomainMessage.OUTPUT_FORMAT,badge.badge());
     }
 }

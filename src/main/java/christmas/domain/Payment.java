@@ -21,4 +21,8 @@ public class Payment {
     public boolean isPresentation(){
         return this.payment >= TOTAL_AMOUNT;
     }
+
+    public boolean isBadge(int badgeStandard){
+        return this.payment >= badgeStandard;
+    }
 }
