@@ -14,7 +14,7 @@ public class Payment {
 
     private Payment(OrderHistory orderHistory){
         this.orderHistory = orderHistory;
-        payment = this.orderHistory.calculateBill();
+        this.payment = this.orderHistory.calculateBill();
     }
 
     public Integer payment(){
