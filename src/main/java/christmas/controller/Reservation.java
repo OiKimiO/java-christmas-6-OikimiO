@@ -2,16 +2,19 @@ package christmas.controller;
 
 import static christmas.config.utils.RepeatReader.read;
 
+import christmas.config.convert.ConvertToArray;
 import christmas.controller.format.OrderFormat;
 import christmas.domain.Payment;
 import christmas.domain.ReservationDay;
 import christmas.domain.order.OrderHistory;
 import christmas.view.input.InputView;
 import christmas.view.output.DomainMessage;
+import christmas.view.output.InputMessage;
 import christmas.view.output.OutputView;
 
 public class Reservation {
     public Reservation() {
+        OutputView.print(InputMessage.INIT);
         reservationInfo();
     }
 
@@ -23,12 +26,22 @@ public class Reservation {
     }
 
     public ReservationDay reserveDay() {
-        return ReservationDay.create(InputView.reserveDay());
+        OutputView.print(InputMessage.WHEN_VISIT_DATE);
+        ReservationDay reservationDay = ReservationDay.create(InputView.reserveDay());
+        OutputView.printf(InputMessage.INPUT_FORMAT, reservationDay.reserveDay());
+
+        return reservationDay;
     }
 
     public OrderHistory receiveOrder() {
-        String[] orders = InputView.receiveOrder();
+        OutputView.print(InputMessage.WHAT_ORDER_MENU);
+
+        String order = InputView.receiveOrder();
+        String[] orders = ConvertToArray.from(order).get();
         OrderFormat.validate(orders);
+        OrderHistory orderHistory = OrderHistory.create(orders);
+
+        OutputView.printf(InputMessage.INPUT_FORMAT, orders);
 
         return OrderHistory.create(orders);
     }

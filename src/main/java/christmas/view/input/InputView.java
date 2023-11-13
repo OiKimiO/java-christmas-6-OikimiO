@@ -16,8 +16,8 @@ public class InputView {
         return ConvertToInt.from(readLine()).get();
     }
 
-    public static String[] receiveOrder() {
-        return ConvertToArray.from(readLine()).get();
+    public static String receiveOrder() {
+        return readLine();
     }
 
     public static void reservationInfo(ReservationDay reserveDay, OrderHistory orderHistory, Payment payment){

@@ -1,10 +1,12 @@
 package christmas.domain;
 
+import christmas.view.output.DomainMessage;
+
 public class Badge {
     private static final int STAR = 5000;
     private static final int TREE = 10000;
     private static final int SANTA = 20000;
-    private String badge = "없음";
+    private String badge = DomainMessage.OUTPUT_NOTHING.getValue();
 
     public static Badge create(Payment payment){
         return new Badge(payment);
