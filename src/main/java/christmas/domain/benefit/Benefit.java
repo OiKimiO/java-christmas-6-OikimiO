@@ -5,6 +5,7 @@ import static java.lang.String.format;
 import christmas.domain.Payment;
 import christmas.view.output.DomainMessage;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Benefit {
     private final int benefitAmount;
@@ -16,13 +17,9 @@ public class Benefit {
 
     private Benefit(List<DiscountAmount> discountAmount){
         this.discountAmount = discountAmount;
-        int benefitAmount = 0;
-
-        for (DiscountAmount discount : this.discountAmount) {
-            benefitAmount += discount.discountAmount();
-        }
-
-        this.benefitAmount = benefitAmount;
+        this.benefitAmount = discountAmount.stream()
+                .mapToInt(DiscountAmount::discountAmount)
+                .sum();
     }
 
     public String benefitList() {
