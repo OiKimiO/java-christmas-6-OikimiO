@@ -29,7 +29,7 @@ public class Benefit {
         StringBuilder print = iterateFormat();
 
         if(print.length() == 0){
-            return "없음";
+            return DomainMessage.OUTPUT_NOTHING.name();
         }
 
         return print.toString();
