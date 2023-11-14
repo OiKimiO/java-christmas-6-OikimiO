@@ -3,7 +3,7 @@ package christmas.domain.benefit;
 import static java.lang.String.format;
 import static christmas.view.output.DomainMessage.OUTPUT_NOTHING;
 
-import christmas.domain.Payment;
+import christmas.domain.order.Payment;
 import christmas.view.output.DomainMessage;
 
 public class PresentationPolicy implements DiscountAmount{

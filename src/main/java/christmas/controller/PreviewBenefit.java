@@ -1,8 +1,8 @@
 package christmas.controller;
 
 import christmas.domain.benefit.Badge;
-import christmas.domain.Payment;
-import christmas.domain.ReservationDay;
+import christmas.domain.order.Payment;
+import christmas.domain.order.ReservationDay;
 import christmas.domain.benefit.Benefit;
 import christmas.domain.benefit.DDayPolicy;
 import christmas.domain.benefit.DiscountAmount;

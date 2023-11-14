@@ -2,6 +2,7 @@ package christmas.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import christmas.domain.order.ReservationDay;
 import java.time.DayOfWeek;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

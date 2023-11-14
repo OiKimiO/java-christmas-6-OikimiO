@@ -4,8 +4,8 @@ package christmas.view.input;
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
 import christmas.config.convert.ConvertToInt;
-import christmas.domain.Payment;
-import christmas.domain.ReservationDay;
+import christmas.domain.order.Payment;
+import christmas.domain.order.ReservationDay;
 import christmas.domain.order.OrderHistory;
 import christmas.dto.ReservationDto;
 

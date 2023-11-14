@@ -4,8 +4,8 @@ import static christmas.config.utils.RepeatReader.read;
 
 import christmas.config.convert.ConvertToArray;
 import christmas.controller.format.OrderFormat;
-import christmas.domain.Payment;
-import christmas.domain.ReservationDay;
+import christmas.domain.order.Payment;
+import christmas.domain.order.ReservationDay;
 import christmas.domain.order.OrderHistory;
 import christmas.view.input.InputView;
 import christmas.view.output.DomainMessage;

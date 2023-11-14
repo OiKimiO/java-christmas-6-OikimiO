@@ -1,7 +1,7 @@
 package christmas.dto;
 
-import christmas.domain.Payment;
-import christmas.domain.ReservationDay;
+import christmas.domain.order.Payment;
+import christmas.domain.order.ReservationDay;
 import christmas.domain.order.OrderHistory;
 
 public record ReservationDto(ReservationDay reserveDay,

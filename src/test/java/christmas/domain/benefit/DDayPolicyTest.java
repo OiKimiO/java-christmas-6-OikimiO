@@ -2,8 +2,8 @@ package christmas.domain.benefit;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import christmas.domain.Payment;
-import christmas.domain.ReservationDay;
+import christmas.domain.order.Payment;
+import christmas.domain.order.ReservationDay;
 import christmas.domain.order.OrderHistory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

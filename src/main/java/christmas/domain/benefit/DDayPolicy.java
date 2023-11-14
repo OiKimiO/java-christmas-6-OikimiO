@@ -2,8 +2,8 @@ package christmas.domain.benefit;
 
 import static java.lang.String.format;
 
-import christmas.domain.Payment;
-import christmas.domain.ReservationDay;
+import christmas.domain.order.Payment;
+import christmas.domain.order.ReservationDay;
 import christmas.view.output.DomainMessage;
 
 public class DDayPolicy extends DayPolicy {

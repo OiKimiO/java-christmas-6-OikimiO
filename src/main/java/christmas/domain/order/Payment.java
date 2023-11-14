@@ -1,6 +1,4 @@
-package christmas.domain;
-
-import christmas.domain.order.OrderHistory;
+package christmas.domain.order;
 
 public class Payment {
     private static final int TOTAL_AMOUNT = 120000;

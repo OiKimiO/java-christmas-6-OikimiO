@@ -1,7 +1,7 @@
 package christmas.domain.benefit;
 
-import christmas.domain.Payment;
-import christmas.domain.ReservationDay;
+import christmas.domain.order.Payment;
+import christmas.domain.order.ReservationDay;
 
 public abstract class DayPolicy implements DiscountAmount{
     protected final int DISCOUNT_AMOUNT = -1000;

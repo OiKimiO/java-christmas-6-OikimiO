@@ -1,7 +1,7 @@
 package christmas.domain.benefit;
 
-import christmas.domain.Payment;
-import christmas.domain.ReservationDay;
+import christmas.domain.order.Payment;
+import christmas.domain.order.ReservationDay;
 import java.time.DayOfWeek;
 
 public abstract class DayOfWeekPolicy implements DiscountAmount{
