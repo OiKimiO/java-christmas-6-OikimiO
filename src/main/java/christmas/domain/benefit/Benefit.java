@@ -29,7 +29,7 @@ public class Benefit {
         StringBuilder print = iterateFormat();
 
         if(print.length() == 0){
-            return DomainMessage.OUTPUT_NOTHING.name();
+            return DomainMessage.OUTPUT_NOTHING.getValue();
         }
 
         return print.toString();
