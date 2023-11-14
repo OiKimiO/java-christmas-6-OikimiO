@@ -9,7 +9,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class ReservationDay {
-    private static final LocalDate STANDARD_DATE = LocalDate.parse("2023-12-01");
+    private static final LocalDate STANDARD_DATE = LocalDate.parse("2023-11-30");
     private static final int START_DAY = 1;
     private static final int END_DAY = 31;
     private final int day;
