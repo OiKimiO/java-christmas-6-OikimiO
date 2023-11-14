@@ -17,7 +17,7 @@ public class PresentationPolicyTest {
 
     @Test
     @DisplayName("120,000원 이상 구매해 증정 정책을 적용한다.")
-    void createDayPolicy(){
+    void createPresentationPolicy(){
         String[] orders = new String[]{"양송이수프-2","해산물파스타-5","초코케이크-2","제로콜라-1"};
 
         PresentationPolicy presentationPolicy = presentationPolicy(orders);
@@ -29,7 +29,7 @@ public class PresentationPolicyTest {
 
     @Test
     @DisplayName("120,000원 미만 구매해 증정 정책을 적용하지 못한다.")
-    void createDayPolicyLessThan120000(){
+    void createPresentationPolicyLessThan120000(){
         String[] orders = new String[]{"양송이수프-1","제로콜라-1"};
 
         PresentationPolicy presentationPolicy = presentationPolicy(orders);

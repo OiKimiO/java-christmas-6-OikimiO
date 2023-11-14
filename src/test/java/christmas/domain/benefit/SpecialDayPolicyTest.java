@@ -31,7 +31,7 @@ public class SpecialDayPolicyTest {
 
     @Test
     @DisplayName("스케줄에 별이 포함되어 있지 않아 0원을 할인 받는다.")
-    void createDayPolicyLessThan120000(){
+    void createSpecialDayPolicyExceptSpecialDay(){
         String[] orders = new String[]{"양송이수프-2","해산물파스타-2","초코케이크-2","제로콜라-1"};
         int reserveDay = 14;
         SpecialDayPolicy specialDayPolicy = specialDayPolicy(orders, reserveDay);
