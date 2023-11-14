@@ -2,7 +2,6 @@ package christmas.domain.order;
 
 import christmas.config.exception.ExceptionType;
 import christmas.config.exception.InputException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,49 +26,41 @@ public class OrderHistory {
             throw new InputException(ExceptionType.RIGHT_COOKTYPE);
         }
 
-        if(isOverTwnety()){
+        if(isOverTwenty()){
             throw new InputException(ExceptionType.OVER_COOKTYPE_TWENTY);
         }
     }
 
-    private boolean isOverTwnety() {
-        int totalQuantity = 0;
-        for (Order order : orderHistory) {
-            totalQuantity += order.quantity();
-        }
+    private boolean isOverTwenty() {
+        int totalQuantity = orderHistory.stream()
+                .mapToInt(Order::quantity)
+                .sum();
         return totalQuantity > 20;
     }
 
     private boolean isWrongOrder() {
-        List<String> orderCheck = new ArrayList<>();
-        for (Order order : orderHistory) {
-            String cookType = order.cookType();
-            if(cookType != BEVERAGE){
-                orderCheck.add(cookType);
-            }
-        }
-        return orderCheck.size() == 0;
+        List<String> orderCheck = orderHistory.stream()
+                .map(Order::cookType)
+                .filter(cookType -> !BEVERAGE.equals(cookType))
+                .collect(Collectors.toList());
+        return orderCheck.isEmpty();
     }
 
-    public StringBuilder historyFormat(){
+    public StringBuilder historyFormat() {
         return new StringBuilder(orderHistory.stream()
                 .map(Order::orderFormat)
                 .collect(Collectors.joining()));
     }
 
     public Integer calculateBill() {
-        int totalBill = 0;
-        for (Order order : orderHistory) {
-            totalBill += order.calculate();
-        }
-        return totalBill;
+        return orderHistory.stream()
+                .map(Order::calculate)
+                .reduce(0, Integer::sum);
     }
 
     public int discount(String cookType, int discountAmount) {
-        int totalDiscount = 0;
-        for (Order order : orderHistory) {
-            totalDiscount += order.discount(cookType, discountAmount);
-        }
-        return totalDiscount;
+        return orderHistory.stream()
+                .mapToInt(order -> order.discount(cookType, discountAmount))
+                .sum();
     }
 }
