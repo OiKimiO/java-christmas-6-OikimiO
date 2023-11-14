@@ -33,7 +33,11 @@ public class Payment {
         return this.payment >= this.DISCOUNT_CONDITION;
     }
 
-    public int discount(String cookType) {
-        return this.orderHistory.discount(cookType);
+    public int discount(String cookType, int discountAmount) {
+        return this.orderHistory.discount(cookType, discountAmount);
+    }
+
+    public int finalPay(int realDiscount){
+        return payment + realDiscount;
     }
 }

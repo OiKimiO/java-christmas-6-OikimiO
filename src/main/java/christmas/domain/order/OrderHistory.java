@@ -65,10 +65,10 @@ public class OrderHistory {
         return totalBill;
     }
 
-    public int discount(String cookType) {
+    public int discount(String cookType, int discountAmount) {
         int totalDiscount = 0;
         for (Order order : orderHistory) {
-            totalDiscount += order.discount(cookType);
+            totalDiscount += order.discount(cookType, discountAmount);
         }
         return totalDiscount;
     }

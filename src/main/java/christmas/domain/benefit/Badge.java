@@ -1,5 +1,6 @@
-package christmas.domain;
+package christmas.domain.benefit;
 
+import christmas.domain.Payment;
 import christmas.view.output.DomainMessage;
 
 public class Badge {

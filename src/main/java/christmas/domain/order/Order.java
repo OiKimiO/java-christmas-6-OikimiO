@@ -8,7 +8,6 @@ import christmas.view.output.DomainMessage;
 import java.util.StringTokenizer;
 
 public class Order {
-    private static final int DISCOUNT_AMOUNT = -2023;
     private static final int NOT_DISCOUNT = 0;
     private final Menu menu;
     private final OrderQuantity orderQuantity;
@@ -41,10 +40,10 @@ public class Order {
         return price * quantity;
     }
 
-    public int discount(String cookType) {
+    public int discount(String cookType, int discountAmount) {
         Integer quantity = this.orderQuantity.quantity();
         if(isEqualCookType(cookType)){
-            return DISCOUNT_AMOUNT * quantity;
+            return discountAmount * quantity;
         }
         return NOT_DISCOUNT;
     }

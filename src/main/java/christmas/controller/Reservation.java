@@ -28,8 +28,7 @@ public class Reservation {
     public ReservationDay reserveDay() {
         OutputView.print(InputMessage.WHEN_VISIT_DATE);
         ReservationDay reservationDay = ReservationDay.create(InputView.reserveDay());
-        OutputView.printf(InputMessage.INPUT_FORMAT, reservationDay.reserveDay());
-
+        OutputView.printf(InputMessage.INPUT_FORMAT, reservationDay.printFormat());
         return reservationDay;
     }
 
@@ -40,7 +39,7 @@ public class Reservation {
         String[] orders = ConvertToArray.from(order).get();
         OrderFormat.validate(orders);
 
-        OutputView.printf(InputMessage.INPUT_FORMAT, order);
+        OutputView.printMessage(order);
 
         return OrderHistory.create(orders);
     }
@@ -51,15 +50,21 @@ public class Reservation {
 
         StringBuilder order = orderHistory.historyFormat();
         Payment payment = Payment.create(orderHistory);
-        Integer totalBill = payment.payment();
+        Integer bill = payment.payment();
 
-        OutputView.print(DomainMessage.ORDER_MENU);
-        OutputView.printf(DomainMessage.OUTPUT_FORMAT, order.toString());
-        OutputView.print(InputMessage.SEPARATE);
-
-        OutputView.print(DomainMessage.PREV_DISCOUNT_ORDER_AMOUNT);
-        OutputView.printf(DomainMessage.OUTPUT_WON, totalBill);
-        OutputView.print(InputMessage.SEPARATE);
+        printBill(bill);
+        printOrderMenu(order);
         return payment;
+    }
+
+    private void printOrderMenu(StringBuilder order) {
+        OutputView.print(DomainMessage.ORDER_MENU);
+        OutputView.printMessage(order.toString());
+    }
+
+    private void printBill(Integer bill) {
+        OutputView.print(DomainMessage.PREV_DISCOUNT_ORDER_AMOUNT);
+        OutputView.printf(DomainMessage.OUTPUT_WON, bill);
+        OutputView.print(InputMessage.SEPARATE);
     }
 }

@@ -1,18 +1,22 @@
 package christmas.controller;
 
-import christmas.domain.Badge;
+import christmas.domain.benefit.Badge;
 import christmas.domain.Payment;
 import christmas.domain.ReservationDay;
-import christmas.domain.policy.DDayPolicy;
-import christmas.domain.policy.PresentationPolicy;
-import christmas.domain.policy.SpecialPolicy;
-import christmas.domain.policy.WeekDayPolicy;
-import christmas.domain.policy.WeekendPolicy;
+import christmas.domain.benefit.Benefit;
+import christmas.domain.benefit.DDayPolicy;
+import christmas.domain.benefit.DiscountAmount;
+import christmas.domain.benefit.PresentationPolicy;
+import christmas.domain.benefit.SpecialDayPolicy;
+import christmas.domain.benefit.WeekDayPolicy;
+import christmas.domain.benefit.WeekendPolicy;
 import christmas.dto.ReservationDto;
 import christmas.view.input.InputView;
 import christmas.view.output.DomainMessage;
 import christmas.view.output.InputMessage;
 import christmas.view.output.OutputView;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PreviewBenefit {
     public PreviewBenefit(){
@@ -20,72 +24,54 @@ public class PreviewBenefit {
         Payment payment = reservationDto.payment();
         ReservationDay reservationDay = reservationDto.reserveDay();
 
-        int presentationDiscount = presentation(payment);
-        int totalDiscount = totalBenefit(payment, reservationDay);
-        OutputView.print(DomainMessage.TOTAL_BENEFIT_AMOUNT);
-        OutputView.printf(DomainMessage.OUTPUT_WON,(totalDiscount + presentationDiscount));
-        OutputView.print(InputMessage.SEPARATE);
-
-        discountPayment(payment, totalDiscount);
+        benefit(payment, reservationDay);
         badge(payment);
     }
 
-    public int presentation(Payment payment) {
+    public Benefit benefit(Payment payment, ReservationDay reservationDay) {
         PresentationPolicy presentationPolicy = PresentationPolicy.create(payment);
 
+        List<DiscountAmount> discountAmounts = new ArrayList<>();
+        discountAmounts.add(DDayPolicy.create(payment, reservationDay));
+        discountAmounts.add(WeekDayPolicy.create(payment, reservationDay));
+        discountAmounts.add(WeekendPolicy.create(payment, reservationDay));
+        discountAmounts.add(SpecialDayPolicy.create(payment, reservationDay));
+        discountAmounts.add(presentationPolicy);
+
+        Benefit benefit = Benefit.create(discountAmounts);
+
+        String finalPayment = benefit.discountPayment(payment, presentationPolicy);
+        printBenefit(presentationPolicy, benefit, finalPayment);
+        return benefit;
+    }
+
+    private void printBenefit(PresentationPolicy presentationPolicy, Benefit benefit, String finalPayment) {
+        printPresentation(presentationPolicy);
+        printBenefitList(benefit);
+        printTotalBenefit(benefit);
+        printFinalPayment(finalPayment);
+    }
+
+    public void printPresentation(PresentationPolicy presentationPolicy) {
         OutputView.print(DomainMessage.PRESENTATION_MENU);
-        OutputView.printMessage(presentationPolicy.presentation());
+        OutputView.printMessage(presentationPolicy.printPresentationFormat());
         OutputView.print(InputMessage.SEPARATE);
-        return presentationPolicy.presentationAmount();
     }
 
-    public int totalBenefit(Payment payment, ReservationDay reservationDay) {
-        DDayPolicy dDayPolicy = DDayPolicy.create(payment, reservationDay.reserveDay());
-        PresentationPolicy presentationPolicy = PresentationPolicy.create(payment);
-        SpecialPolicy specialPolicy = SpecialPolicy.create(payment, reservationDay.reserveDay());
-        WeekDayPolicy weekDayPolicy = WeekDayPolicy.create(payment, reservationDay.reserveDay());
-        WeekendPolicy weekendPolicy = WeekendPolicy.create(payment, reservationDay.reserveDay());
+    private void printTotalBenefit(Benefit benefit) {
+        OutputView.print(DomainMessage.TOTAL_BENEFIT_AMOUNT);
+        OutputView.printMessage(benefit.totalBenefit());
+        OutputView.print(InputMessage.SEPARATE);
+    }
 
-        int dDayDiscount = dDayPolicy.dDayDiscount();
-        int specialDiscount = specialPolicy.specialDiscount();
-        int weekDayDiscount = weekDayPolicy.weekDayDiscount();
-        int weekendDiscount = weekendPolicy.weekendDiscount();
-        int presentationAmount = presentationPolicy.presentationAmount();
-        int totalDiscount = dDayDiscount + specialDiscount + weekDayDiscount + weekendDiscount;
-
+    private void printBenefitList(Benefit benefit) {
         OutputView.print(DomainMessage.BENEFIT_LIST);
-        if(dDayDiscount < 0){
-            OutputView.printf(DomainMessage.CHRISTMAS_DISCOUNT,dDayDiscount);
-        }
-
-        if(weekDayDiscount < 0){
-            OutputView.printf(DomainMessage.WEEKDAY_DISCOUNT,weekDayDiscount);
-        }
-
-        if(weekendDiscount < 0){
-            OutputView.printf(DomainMessage.WEEKEND_DISCOUNT,weekendDiscount);
-        }
-
-        if(specialDiscount < 0){
-            OutputView.printf(DomainMessage.SPECIAL_DISCOUNT,specialDiscount);
-        }
-
-        if(presentationAmount < 0){
-            OutputView.printf(DomainMessage.PRESENTATION_DISCOUNT, presentationAmount);
-        }
-
-        if(dDayDiscount == 0 && weekDayDiscount == 0 && weekendDiscount == 0 && specialDiscount == 0 && presentationAmount == 0){
-            OutputView.print(DomainMessage.OUTPUT_NOTHING);
-        }
-
-        OutputView.print(InputMessage.SEPARATE);
-        return totalDiscount;
+        OutputView.printMessage(benefit.benefitList());
     }
 
-    public void discountPayment(Payment payment, int totalDiscount) {
-        int totalPayment = payment.payment() + totalDiscount;
+    public void printFinalPayment(String finalPayment) {
         OutputView.print(DomainMessage.AFTER_DISCOUNT_EXPECTATION_AMOUNT);
-        OutputView.printf(DomainMessage.OUTPUT_WON,totalPayment);
+        OutputView.printMessage(finalPayment);
         OutputView.print(InputMessage.SEPARATE);
     }
 

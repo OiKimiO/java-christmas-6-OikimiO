@@ -1,9 +1,15 @@
 package christmas.domain;
 
+import static java.lang.String.format;
+
 import christmas.config.exception.ExceptionType;
 import christmas.config.exception.InputException;
+import christmas.view.output.InputMessage;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public class ReservationDay {
+    private static final LocalDate STANDARD_DATE = LocalDate.parse("2023-12-01");
     private static final int START_DAY = 1;
     private static final int END_DAY = 31;
     private final int day;
@@ -37,5 +43,16 @@ public class ReservationDay {
 
     public int reserveDay(){
         return this.day;
+    }
+
+    public String printFormat(){
+        return format(InputMessage.INPUT_FORMAT.getValue(), this.day);
+    }
+
+    public DayOfWeek dayOfWeekAfterDays() {
+        LocalDate targetDate = this.STANDARD_DATE.plusDays(day);
+
+        DayOfWeek dayOfWeek = targetDate.getDayOfWeek();
+        return dayOfWeek;
     }
 }
