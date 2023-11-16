@@ -22,7 +22,7 @@ public class Reservation {
         ReservationDay reserveDay = read(this::reserveDay);
         OrderHistory orderHistory = read(this::receiveOrder);
         Payment payment = orderInfo(reserveDay, orderHistory);
-        InputView.reservationInfo(reserveDay, orderHistory, payment);
+        InputView.reservationInfo(reserveDay, payment);
     }
 
     public ReservationDay reserveDay() {

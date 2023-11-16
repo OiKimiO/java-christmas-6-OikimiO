@@ -20,8 +20,8 @@ public class InputView {
         return readLine();
     }
 
-    public static void reservationInfo(ReservationDay reserveDay, OrderHistory orderHistory, Payment payment){
-        reservationDto = new ReservationDto(reserveDay, orderHistory, payment);
+    public static void reservationInfo(ReservationDay reserveDay, Payment payment){
+        reservationDto = new ReservationDto(reserveDay, payment);
     }
 
     public static ReservationDto previewBenefit(){
